@@ -72,14 +72,17 @@ public class LFUCacheItem {
 
     // other methods...
 
-    @Override
+ 
+   // defining Prototype.
     public LFUCacheItem clone() {
-        LFUCacheItem clonedItem = new LFUCacheItem();
-        clonedItem.key = this.key;
-        clonedItem.value = this.value;
-        clonedItem.frequency = this.frequency;
-        return clonedItem;
+        LFUCacheItem clonedCacheItem = new LFUCacheItem();
+        clonedCacheItem.setKey(this.key);
+        clonedCacheItem.setValue(this.value);
+        clonedCacheItem.setFrequency(this.frequency);
+
+        return clonedCacheItem;
     }
+
 }
 ```
 
