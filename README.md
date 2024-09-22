@@ -65,7 +65,7 @@ public class LFUCacheBuilder {
 ### 3. **Prototype Pattern**
 The **Prototype Pattern** is used in the LFUCacheItem class, allowing cache items to be cloned rather than creating entirely new objects. This is useful for maintaining the original object’s state while performing operations like updating the frequency, ensuring each object is independent.
 ```java
-public class LFUCacheItem implements Cloneable {
+public class LFUCacheItem {
     private String key;
     private int value;
     private int frequency;
