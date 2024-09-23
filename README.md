@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a cache program implemented using **creational design patterns** in Java. The cache supports operations like `put`, `get`, `remove`, and clearing of cache entries, with support for multiple cache strategies: **LRU (Least Recently Used)**, **FIFO (First-In, First-Out)**, and **LFU (Least Frequently Used)**. The program leverages design patterns like **Singleton**, **Factory Method**, **Builder**, and **Prototype** to provide flexibility and scalability in managing cache instances.
+This is a cache program implemented using **creational design patterns** in Java. The cache supports operations like `put`, `get`, `remove`, and clearing of cache entries, with support for multiple cache strategies: **LRU (Least Recently Used)**, **FIFO (First-In, First-Out)**, and **LFU (Least Frequently Used)**. The program leverages design patterns like  **Factory Method**, **Builder**, and **Prototype** and Structural Patterns to provide flexibility and scalability in managing cache instances.
 
 ## Requirements
 - **Cache key**: `String`
@@ -85,4 +85,35 @@ public class LFUCacheItem {
 
 }
 ```
+### 4. **Adapter Pattern**
+The **Adapter Pattern** is used to allow the cache to interact with different data sources or formats without modifying the existing codebase.
+```java
+public class LegacyCacheAdapter implements ICache {
+    private LegacyCache legacyCache;
+    private int capacity;
+    public LegacyCacheAdapter(int capacity) {
+        legacyCache = new LegacyCache();
+        this.capacity = capacity;
+    }
+// other methods...
+```
+### 5. **Decorator Pattern**
+The **Decorator Pattern** is used to add additional functionality to cache operations dynamically, such as logging or caching statistics, without modifying the core cache classes.
+```java
+public class CacheDecorator implements ICache {
+    private ICache cache;
+
+    public CacheDecorator(ICache cache) {
+        this.cache = cache;
+    }
+
+    @Override
+    public void put(String key, int value) {
+        System.out.println("Adding key: " + key + " with value: " + value);
+        cache.put(key, value);
+    }
+ // other methods...
+
+```
+
 
