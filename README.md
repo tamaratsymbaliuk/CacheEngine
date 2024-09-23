@@ -1,7 +1,7 @@
-# DesignPatterns
-# Cache Program
+# Cache Engine
 
 ## Overview
+
 This is a cache program implemented using **creational design patterns** in Java. The cache supports operations like `put`, `get`, `remove`, and clearing of cache entries, with support for multiple cache strategies: **LRU (Least Recently Used)**, **FIFO (First-In, First-Out)**, and **LFU (Least Frequently Used)**. The program leverages design patterns like **Singleton**, **Factory Method**, **Builder**, and **Prototype** to provide flexibility and scalability in managing cache instances.
 
 ## Requirements
