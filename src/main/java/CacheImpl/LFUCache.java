@@ -19,7 +19,7 @@ public class LFUCache implements ICache {
     private final PriorityQueue<LFUCacheItem> keyFrequenciesMinHeap;
 
     /**
-     * Constructs a new LFUCache with a default capacity of 10.
+     * This constructor uses a default capacity if not specified by the builder
      */
     public LFUCache() {
         this.capacity = 10;

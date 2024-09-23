@@ -18,6 +18,8 @@ public class LRUCache implements ICache {
     /**
      * Constructs an LRUCache with a specified capacity.
      * Automatically evicts the least recently used item when the capacity is exceeded.
+     * The 0.75f is the load factor, controlling how full the map can get before resizing, balancing time and space efficiency.
+     * The true parameter sets access order, ensuring the most recently accessed items are kept at the end, which is essential for implementing LRU (Least Recently Used) behavior in the cache.
      *
      * @param capacity The maximum number of items the cache can hold.
      */

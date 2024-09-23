@@ -3,6 +3,8 @@ package CacheImpl;
 import Enums.CacheTypeEnum;
 import Interfaces.ICache;
 
+import java.text.MessageFormat;
+
 /**
  * Main class to test the various cache implementations: LFU, LRU, and FIFO.
  * It contains test methods to validate the behavior of each cache type.
@@ -16,9 +18,11 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         System.out.println("Starting...");
-        testLFUCache();
-        testFIFOCache();
-        testLRUCache();
+        //testLFUCache();
+        //testFIFOCache();
+        //testLRUCache();
+        //testFIFOMeasureTimeCacheDecorator();
+        testLegacyCacheAdapter();
     }
 
     /**
@@ -91,6 +95,25 @@ public class Main {
 
         // Expect an error message for key3 and return 0 since key3 was evicted.
         System.out.println(cache.get("key3"));
+    }
+
+    private static void testFIFOMeasureTimeCacheDecorator(){
+        CacheDecorator decorator = new CacheTimeMeasureDecorator(CacheFactory.createCacheInstance(CacheTypeEnum.LFU, 3));
+        decorator.put("key1", 1); // [key1:1, ]
+        decorator.put("key2", 2); // [key1:1, key2:2, ]
+
+        System.out.println(MessageFormat.format("Key: {0}", decorator.get("key1")));
+    }
+
+    private static void testLegacyCacheAdapter(){
+        ICache cache = new LegacyCacheAdapter(3);
+        cache.put("key1", 1); // [key1:1, ]
+        cache.put("key2", 2); // [key1:1, key2:2, ]
+        cache.put("key3", 3); // [key1:1, key2:2, key3:3 ]
+        cache.put("key4", 4); // [key1:1, key2:2, key3:3 ]
+        cache.put("key3", 4); // [key1:1, key2:2, key3:4 ]
+        cache.remove("key1");
+        cache.put("key4", 4); // [key1:1, key2:2, key3:3 ]
     }
 }
 
