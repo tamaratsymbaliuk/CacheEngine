@@ -21,12 +21,11 @@ public class Main {
         //testLFUCache();
         //testFIFOCache();
         //testLRUCache();
-        testFIFOMeasureTimeCacheDecorator();
-        testLegacyCacheAdapter();
+        //testFIFOMeasureTimeCacheDecorator();
+        //testLegacyCacheAdapter();
+        testFIFOCacheIterator();
+        testGenerics();
 
-    }
-
-    private static void testFIFOCacheIterator() {
     }
 
     /**
@@ -34,7 +33,7 @@ public class Main {
      * Demonstrates cache operations like put, get, and eviction of the least recently used element.
      */
     private static void testLRUCache() {
-        ICache cache = CacheFactory.createCacheInstance(CacheTypeEnum.LRU, 3);
+        ICache<String, Integer> cache = (new CacheFactory<String,Integer>()).createCacheInstance(CacheTypeEnum.LRU, 3);
 
         cache.put("key1", 1);
         cache.put("key2", 2);
@@ -55,7 +54,7 @@ public class Main {
      * Demonstrates cache operations including put, get, and eviction of the least frequently used element.
      */
     private static void testLFUCache() {
-        ICache cache = CacheFactory.createCacheInstance(CacheTypeEnum.LFU, 3);
+        ICache<String, Integer> cache = (new CacheFactory<String,Integer>()).createCacheInstance(CacheTypeEnum.LFU, 3);
 
         cache.put("key1", 1); // key1:1, freq 1
         cache.put("key1", 6); // key1:6, freq 2
@@ -81,7 +80,7 @@ public class Main {
      * Demonstrates cache operations including put, get, and eviction of the earliest added element.
      */
     private static void testFIFOCache() {
-        ICache cache = CacheFactory.createCacheInstance(CacheTypeEnum.FIFO, 3);
+        ICache<String, Integer> cache = (new CacheFactory<String,Integer>()).createCacheInstance(CacheTypeEnum.FIFO, 3);
         cache.put("key1", 1); // [key1:1, ]
         cache.put("key2", 2); // [key1:1, key2:2, ]
         cache.put("key3", 3); // [key1:1, key2:2, key3:3, ]
@@ -102,7 +101,7 @@ public class Main {
     }
 
     private static void testFIFOMeasureTimeCacheDecorator(){
-        CacheDecorator decorator = new CacheTimeMeasureDecorator(CacheFactory.createCacheInstance(CacheTypeEnum.LFU, 3));
+        CacheDecorator<String, Integer> decorator = new CacheTimeMeasureDecorator<String, Integer>((new CacheFactory<String,Integer>()).createCacheInstance(CacheTypeEnum.FIFO, 3));
         decorator.put("key1", 1); // [key1:1, ]
         decorator.put("key2", 2); // [key1:1, key2:2, ]
 
@@ -110,7 +109,7 @@ public class Main {
     }
 
     private static void testLegacyCacheAdapter(){
-        ICache cache = new LegacyCacheAdapter(3);
+        ICache<String, Integer> cache = new LegacyCacheAdapter<String, Integer>(3);
         cache.put("key1", 1); // [key1:1, ]
         cache.put("key2", 2); // [key1:1, key2:2, ]
         cache.put("key3", 3); // [key1:1, key2:2, key3:3 ]
@@ -119,5 +118,35 @@ public class Main {
         cache.remove("key1");
         cache.put("key4", 4); // [key1:1, key2:2, key3:3 ]
     }
+    private static void testFIFOCacheIterator(){
+        ICache<String,Integer> cache = (new CacheFactory<String,Integer>()).createCacheInstance(CacheTypeEnum.FIFO, 3);
+        cache.put("key1", 1); // [key1:1, ]
+        cache.put("key2", 2); // [key1:1, key2:2, ]
+        cache.put("key3", 3); // [key1:1, key2:2, key3:3, ]
+
+        System.out.println("Cache keys are:");
+        for (String key : cache) {
+            System.out.println(key);
+        }
+    }
+    private static void testGenerics() {
+        ICache<Double,String> cache =  (new CacheFactory<Double,String>()).createCacheInstance(CacheTypeEnum.FIFO, 3);
+
+        cache.put(1.01, "minimum"); // [key1:1, ]
+        cache.put(1.05, "average"); // [key1:1, key2:2, ]
+        cache.put(1.10, "maximum"); // [key1:1, key2:2, key3:3, ]
+
+        System.out.println("Cache keys are:");
+        for (Double key : cache) {
+            System.out.println(key);
+        }
+    }
+
+    // cache with key is string, value is string
+    // cache with key is integer, value is double
+    private static void testGenerics1() {
+        ICache<Integer,Double> cache =  (new CacheFactory<Integer,Double>()).createCacheInstance(CacheTypeEnum.FIFO, 3);
+    }
+
 }
 
