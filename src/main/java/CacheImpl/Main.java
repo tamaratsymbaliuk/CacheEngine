@@ -1,12 +1,16 @@
 package CacheImpl;
 
+import CacheImpl.CacheDecorator;
+import CacheImpl.CacheFactory;
+import CacheImpl.CacheTimeMeasureDecorator;
+import CacheImpl.LegacyCacheAdapter;
 import Enums.CacheTypeEnum;
 import Interfaces.ICache;
 
 import java.text.MessageFormat;
 
 /**
- * Main class to test the various cache implementations: LFU, LRU, and FIFO.
+ * CacheImpl.Main class to test the various cache implementations: LFU, LRU, and FIFO.
  * It contains test methods to validate the behavior of each cache type.
  */
 public class Main {
@@ -23,7 +27,7 @@ public class Main {
         //testLRUCache();
         //testFIFOMeasureTimeCacheDecorator();
         //testLegacyCacheAdapter();
-        testFIFOCacheIterator();
+        //testFIFOCacheIterator();
         testGenerics();
 
     }
@@ -147,6 +151,5 @@ public class Main {
     private static void testGenerics1() {
         ICache<Integer,Double> cache =  (new CacheFactory<Integer,Double>()).createCacheInstance(CacheTypeEnum.FIFO, 3);
     }
-
 }
 
