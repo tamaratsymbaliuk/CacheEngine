@@ -27,7 +27,7 @@ public class Main {
         //testLRUCache();
         //testFIFOMeasureTimeCacheDecorator();
         //testLegacyCacheAdapter();
-        testFIFOCacheIterator();
+        //testFIFOCacheIterator();
         testGenerics();
     }
 
