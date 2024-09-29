@@ -3,6 +3,7 @@ package CacheImpl;
 import Interfaces.ICache;
 
 import java.text.MessageFormat;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -11,9 +12,9 @@ import java.util.Map;
  * This cache uses a LinkedHashMap to maintain access order.
  */
 
-public class LRUCache implements ICache {
+public class LRUCache<K,V> implements ICache<K,V> {
     private final int capacity;
-    private final Map<String, Integer> cache;
+    private final Map<K, V> cache;
 
     /**
      * Constructs an LRUCache with a specified capacity.
@@ -25,30 +26,30 @@ public class LRUCache implements ICache {
      */
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        this.cache = new LinkedHashMap<String, Integer>(capacity, 0.75f, true) {
+        this.cache = new LinkedHashMap<K, V>(capacity, 0.75f, true) {
             @Override
-            protected boolean removeEldestEntry(Map.Entry<String, Integer> eldest) {
+            protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
                 return size() > capacity;
             }
         };
     }
 
     @Override
-    public void put(String key, Integer value) {
+    public void put(K key, V value) {
         cache.put(key, value);
     }
 
     @Override
-    public int get(String key) {
+    public V get(K key) {
         if (!containsKey(key)) {
             System.out.println(MessageFormat.format("ERROR: Key {0} is not in cache.", key));
-            return 0;
+            return null;
         }
         return cache.get(key);
     }
 
     @Override
-    public void remove(String key) {
+    public void remove(K key) {
         if (!containsKey(key)) {
             System.out.println(MessageFormat.format("ERROR: Key {0} is not in cache.", key));
         } else {
@@ -67,7 +68,12 @@ public class LRUCache implements ICache {
     }
 
     @Override
-    public boolean containsKey(String key) {
+    public boolean containsKey(K key) {
         return cache.containsKey(key);
+    }
+    @Override
+    public Iterator<K> iterator() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
     }
 }
