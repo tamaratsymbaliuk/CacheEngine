@@ -9,7 +9,7 @@ import java.text.MessageFormat;
  * Factory class for creating cache instances based on the specified cache type.
  */
 
-public class CacheFactory {
+public class CacheFactory<K,V> {
     /**
      * Creates an instance of a cache based on the specified type and capacity.
      *
@@ -17,7 +17,7 @@ public class CacheFactory {
      * @param capacity The maximum capacity of the cache.
      * @return An instance of the specified cache type.
      */
-    public static ICache createCacheInstance(CacheTypeEnum type, int capacity) {
+    public ICache<K,V> createCacheInstance(CacheTypeEnum type, int capacity) {
         switch (type) {
             case FIFO -> {
                 return new FIFOCache(capacity);
