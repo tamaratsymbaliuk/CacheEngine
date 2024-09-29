@@ -79,3 +79,4 @@ public class FIFOCache implements ICache {
         return dictMap.containsKey(key);
     }
 }
+
