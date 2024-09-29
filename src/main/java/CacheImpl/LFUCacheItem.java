@@ -3,9 +3,9 @@ package CacheImpl;
 /**
  * Represents an item in the LFUCache with a key, value, and access frequency.
  */
-public class LFUCacheItem {
-    private String key;
-    private Integer value;
+public class LFUCacheItem<K,V> {
+    private K key;
+    private V value;
     private int frequency;
 
     /**
@@ -20,7 +20,7 @@ public class LFUCacheItem {
      * @param key   The key of the cache item.
      * @param value The value associated with the key.
      */
-    public LFUCacheItem(String key, Integer value) {
+    public LFUCacheItem(K key, V value) {
         this.key = key;
         this.value = value;
         this.frequency = 1;
@@ -31,35 +31,34 @@ public class LFUCacheItem {
      *
      * @return A new LFUCacheItem object with the same key, value, and frequency.
      */
-    public LFUCacheItem clone() {
-        LFUCacheItem clonedCacheItem = new LFUCacheItem();
+    public LFUCacheItem<K,V> clone() {
+        LFUCacheItem<K,V> clonedCacheItem = new LFUCacheItem<K,V>();
         clonedCacheItem.setKey(this.key);
         clonedCacheItem.setValue(this.value);
         clonedCacheItem.setFrequency(this.frequency);
         return clonedCacheItem;
     }
 
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    public void setKey(String key_) {
-        this.key = key_;
-    }
-
-    public String getKey() {
+    public K getKey() {
         return key;
     }
 
-    public Integer getValue() {
+    public void setKey(K key_) {
+        this.key = key_;
+    }
+    public V getValue() {
         return value;
+    }
+
+    public void setValue(V value) {
+        this.value = value;
     }
 
     public int getFrequency() {
         return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
     }
 }
