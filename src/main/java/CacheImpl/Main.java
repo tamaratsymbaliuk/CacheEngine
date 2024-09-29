@@ -21,8 +21,12 @@ public class Main {
         //testLFUCache();
         //testFIFOCache();
         //testLRUCache();
-        //testFIFOMeasureTimeCacheDecorator();
+        testFIFOMeasureTimeCacheDecorator();
         testLegacyCacheAdapter();
+
+    }
+
+    private static void testFIFOCacheIterator() {
     }
 
     /**
