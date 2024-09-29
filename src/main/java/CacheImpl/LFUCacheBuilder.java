@@ -3,22 +3,22 @@ package CacheImpl;
 /**
  * Builder class for constructing LFUCache objects with customizable properties.
  */
-public class LFUCacheBuilder {
-    private LFUCache lfuCache;
+public class LFUCacheBuilder<K,V> {
+    private LFUCache<K,V> lfuCache;
 
     /**
      * Constructs a new LFUCacheBuilder.
      */
     public LFUCacheBuilder() {
-        lfuCache = new LFUCache();
+        lfuCache = new LFUCache<K,V>();
     }
 
-    public LFUCacheBuilder setCapacity(int capacity) {
+    public LFUCacheBuilder<K,V> setCapacity(int capacity) {
         lfuCache.setCapacity(capacity);
         return this;
     }
 
-    public LFUCacheBuilder setServerName(String serverName) {
+    public LFUCacheBuilder<K,V> setServerName(String serverName) {
         lfuCache.setServerName(serverName);
         return this;
     }
@@ -28,7 +28,7 @@ public class LFUCacheBuilder {
      *
      * @return Configured LFUCache object.
      */
-    public LFUCache build() {
+    public LFUCache<K,V> build() {
         return lfuCache;
     }
 }
